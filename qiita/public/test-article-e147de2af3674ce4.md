@@ -1,15 +1,14 @@
 ---
 title: テスト投稿 v3
-tags:
-  - Qiita
-  - テスト
-  - Zenn
 private: false
+tags:
+  - test
+  - zenn
+  - qiita
 updated_at: '2025-04-28T07:56:51+09:00'
 id: 974a86215471f8441e92
 organization_url_name: null
 slide: false
-ignorePublish: false
 ---
 
 # テスト投稿 v3
@@ -33,7 +32,7 @@ hello_world()
 
 ### 画像のテスト
 
-![テスト画像](https://example.com/test-image.jpg)
+![テスト画像](./images/coffee-cup.png)
 
 ## まとめ
 
