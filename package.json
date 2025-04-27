@@ -1,7 +1,7 @@
 {
   "name": "zenn-archive",
   "version": "1.0.0",
-  "description": "",
+  "description": "![](https://github.com/C-Naoki/zenn-archive/actions/workflows/publish.yml/badge.svg)",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -13,10 +13,10 @@
     "@types/yargs": "^17.0.33",
     "git-url-parse": "^15.0.0",
     "yargs": "^17.7.2",
-    "zenn-cli": "^0.1.158"
+    "zenn-cli": "^0.1.159"
   },
   "devDependencies": {
-    "@qiita/qiita-cli": "^1.6.1",
+    "@qiita/qiita-cli": "^1.6.2",
     "@types/git-url-parse": "^9.0.3",
     "@types/js-yaml": "^4.0.9",
     "@types/node": "^22.7.4",
