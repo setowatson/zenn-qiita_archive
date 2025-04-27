@@ -53,6 +53,9 @@ npx zenn new:article --slug 記事のスラッグ --title タイトル --type id
    - Synchronize the article with Qiita using zenn-qiita-sync
    - Update the repository with any generated Qiita articles
 
+## Article File Naming Rule
+- When creating a new article, always use a unique filename (e.g., slug + random string or timestamp).
+
 ---
 
 # zenn-archive（日本語版）
@@ -109,3 +112,6 @@ npx zenn new:article --slug 記事のスラッグ --title タイトル --type id
    - Zennに記事を公開
    - zenn-qiita-syncを使用してQiitaと同期
    - 生成されたQiitaの記事でリポジトリを更新
+
+## 記事ファイル名のルール
+- 新しい記事を作成する際は、必ず一意なファイル名（例：スラッグ＋ランダム文字列やタイムスタンプ）を使用してください。
