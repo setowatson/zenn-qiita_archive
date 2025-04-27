@@ -1,14 +1,15 @@
 ---
 title: テスト投稿 v3
-private: false
 tags:
-  - test
-  - zenn
-  - qiita
-updated_at: '2025-04-27T22:56:42.474Z'
-id: null
+  - Qiita
+  - テスト
+  - Zenn
+private: false
+updated_at: '2025-04-28T07:56:51+09:00'
+id: 974a86215471f8441e92
 organization_url_name: null
 slide: false
+ignorePublish: false
 ---
 
 # テスト投稿 v3
