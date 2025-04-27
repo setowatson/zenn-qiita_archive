@@ -27,7 +27,7 @@ hello_world()
 
 ### 画像のテスト
 
-![テスト画像](/images/coffee-cup.png)
+![テスト画像](/images/@S__15482932.jpg)
 
 ## まとめ
 
