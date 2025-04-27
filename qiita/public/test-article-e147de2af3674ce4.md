@@ -32,7 +32,7 @@ hello_world()
 
 ### 画像のテスト
 
-![テスト画像](./images/coffee-cup.png)
+![テスト画像](/images/coffee-cup.png)
 
 ## まとめ
 
