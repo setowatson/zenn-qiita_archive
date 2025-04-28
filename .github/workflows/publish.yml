@@ -26,7 +26,7 @@ jobs:
           fetch-depth: 0
 
       - name: Run
-        uses: C-Naoki/zenn-qiita-sync@main
+        uses: setowatson/zenn-qiita_archive@main
         with:
           qiita-token: ${{ secrets.QIITA_TOKEN }}
           convert-commit-message: "🔄 auto: synchronize qiita articles"
