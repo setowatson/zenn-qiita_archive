@@ -25,9 +25,15 @@ jobs:
         with:
           fetch-depth: 0
 
-      - name: Run
-        uses: setowatson/zenn-qiita_archive@main
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
         with:
-          qiita-token: ${{ secrets.QIITA_TOKEN }}
-          convert-commit-message: "🔄 auto: synchronize qiita articles"
-          qiitacli-commit-message: "🔄 auto: update using qiita-cli"
+          node-version: '20'
+
+      - name: Install Qiita CLI
+        run: npm install -g @qiita/qiita-cli
+
+      - name: Run Qiita CLI
+        run: qiita-cli publish
+        env:
+          QIITA_TOKEN: ${{ secrets.QIITA_TOKEN }}
