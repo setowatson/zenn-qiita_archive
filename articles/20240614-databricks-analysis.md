@@ -178,7 +178,7 @@ https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93e
 
 あまりいいモデルとは言えないです。もっと工夫の余地がありそうでした。
 
-# 今後の活用方法
+# まとめ
 
 1. **記事作成の黄金タイミング**
    - 水曜日の朝に投稿
@@ -200,7 +200,7 @@ https://databricks-prod-cloudfront.cloud.databricks.com/public/4027ec902e239c93e
 特に、@hwstakechiyo さんのような高PV記事を参考にしながら、質の高い記事作成に取り組んでいきます！
 
 
-# 今後やりたいこと
+## 今後やりたいこと
 
 今回の分析では基本的な機械学習モデルを使用しましたが、Databricksの強力な機能を活用することで、より高度な分析が可能です。
 
