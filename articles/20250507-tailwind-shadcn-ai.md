@@ -1,20 +1,19 @@
 ---
 title: "AI時代に注目されるTailwindCSS+shadcn/ui【初心者向け解説】"
-emoji: "🎨"
+emoji: "🌱"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["tailwindcss", "shadcn", "ai", "フロントエンド"]
 published: false
 publication_name: "headwaters"
 ---
 
-# はじめに
+# TailwindCSS+shadcn/uiとは？
 
 
 最近、AIを活用したWeb開発が話題になっています。その中でも特に注目されているのが、Tailwind CSSとshadcn/uiの組み合わせです。
 
 「なぜそんなに人気なの？」「通常のCSSと何が違うの？」と疑問に思う方も多いはず。この記事では、初心者にもやさしく、この2つの技術の強みを解説しつつ、実際のコード比較や具体例を交えて紹介します！
 
-# TailwindCSS+shadcn/uiとは？
 
 ## TailwindCSS
 TailwindCSSは、ユーティリティファーストなCSSフレームワークです。簡単に言うと、HTMLの中で直接スタイルを指定できる仕組みです。
@@ -269,42 +268,6 @@ const ProductCard = ({ product }) => (
 )
 ```
 
-# 導入のステップ
-
-## 1. 環境構築
-
-```bash
-# プロジェクトの作成
-npx create-next-app@latest my-app --tailwind
-
-# shadcn/uiのインストール
-npx shadcn-ui@latest init
-```
-
-## 2. コンポーネントの追加
-
-```bash
-# 必要なコンポーネントの追加
-npx shadcn-ui@latest add button
-npx shadcn-ui@latest add card
-npx shadcn-ui@latest add dialog
-```
-
-## 3. テーマのカスタマイズ
-
-```ts
-// tailwind.config.js
-module.exports = {
-  theme: {
-    extend: {
-      colors: {
-        // カスタムカラー
-      },
-      // その他のカスタマイズ
-    }
-  }
-}
-```
 
 # まとめ
 
@@ -325,9 +288,9 @@ TailwindCSSとshadcn/uiの組み合わせは、AI時代のフロントエンド�
    - コンポーネントの拡張
    - 再利用性の高さ
 
-# 参考資料
+## 参考資料
 
-## 公式ドキュメント
+公式ドキュメント
 - [TailwindCSS公式ドキュメント](https://tailwindcss.com/docs)
   - インストールガイド
   - 設定方法
@@ -345,7 +308,7 @@ TailwindCSSとshadcn/uiの組み合わせは、AI時代のフロントエンド�
   - アクセシビリティガイド
   - スタイリングガイド
 
-## 学習リソース
+学習リソース
 - [TailwindCSS公式チュートリアル](https://tailwindcss.com/docs/installation)
   - 初心者向けガイド
   - 実践的な例
@@ -361,23 +324,8 @@ TailwindCSSとshadcn/uiの組み合わせは、AI時代のフロントエンド�
   - リアルタイムプレビュー
   - コード共有機能
 
-## コミュニティリソース
-- [TailwindCSS GitHub](https://github.com/tailwindlabs/tailwindcss)
-  - ソースコード
-  - イシュートラッキング
-  - コントリビューションガイド
 
-- [shadcn/ui GitHub](https://github.com/shadcn-ui/ui)
-  - コンポーネントライブラリ
-  - ディスカッション
-  - プルリクエスト
-
-- [TailwindCSS Discord](https://discord.com/invite/7NF8GNe)
-  - コミュニティサポート
-  - 質問・回答
-  - 最新情報の共有
-
-## 記事・チュートリアル
+記事・チュートリアル
 - [TailwindCSS公式ブログ](https://tailwindcss.com/blog)
   - 最新機能の紹介
   - ユースケース
@@ -392,19 +340,3 @@ TailwindCSSとshadcn/uiの組み合わせは、AI時代のフロントエンド�
   - ビデオチュートリアル
   - ライブストリーム
   - コミュニティハイライト
-
-## ツール・エコシステム
-- [TailwindCSS IntelliSense](https://marketplace.visualstudio.com/items?itemName=bradlc.vscode-tailwindcss)
-  - VSCode拡張機能
-  - コード補完
-  - プレビュー機能
-
-- [TailwindCSS Debug Tools](https://github.com/tailwindlabs/tailwindcss-debug-screens)
-  - デバッグツール
-  - レスポンシブデザイン
-  - パフォーマンス分析
-
-- [shadcn/ui CLI](https://ui.shadcn.com/docs/installation)
-  - コンポーネント生成
-  - プロジェクト設定
-  - テーマ管理 
