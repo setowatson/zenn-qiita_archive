@@ -1,9 +1,9 @@
 ---
-title: "弊社の人気Zenn記事は、どんな特徴があるか分析してみる。"
+title: "弊社の高PV記事の特徴をPythonで分析してみた。"
 emoji: "🌱"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["databricks", "機械学習", "データ分析", "zenn"]
-published: false
+published: true
 publication_name: "headwaters"
 ---
 # はじめに
