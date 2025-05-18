@@ -1,5 +1,5 @@
 ---
-title: Cursor × GitHub × Zenn/Qiitaで、学びを効率よく＆綺麗に残す最強アウトプット環境
+title: Cursor × GitHub × Zenn/Qiitaで、学びを効率よく残す
 private: false
 tags:
   - cursor
@@ -12,8 +12,6 @@ id: 4eec08c95dbb00c9b346
 organization_url_name: null
 slide: false
 ---
-
-
 # はじめに
 
 この記事では、AIアシスタント付きのエディタ CursorとGitHub Actionsを組み合わせて、「ZennとQiitaに効率よく・綺麗にアウトプットする方法」を紹介します。
