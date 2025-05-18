@@ -9,7 +9,6 @@ publication_name: "headwaters"
 
 # 話題のObsidianを触ってみました。
 
-
 最近よく耳にする「Obsidian」。  
 “第二の脳”として使えると評判で、情報管理・グラフビュー・AI連携など、さまざまな文脈で語られています。
 
