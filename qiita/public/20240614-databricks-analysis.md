@@ -1,16 +1,16 @@
 ---
 title: 弊社の高PV記事の特徴をPythonで分析してみた。
+publication_name: headwaters
+private: false
 tags:
+  - databricks
   - 機械学習
   - データ分析
-  - Databricks
-  - Zenn
-private: false
+  - zenn
 updated_at: '2025-05-08T07:55:56+09:00'
 id: 5628f5cfaa3cf1ca470f
 organization_url_name: null
 slide: false
-ignorePublish: false
 ---
 # はじめに
 

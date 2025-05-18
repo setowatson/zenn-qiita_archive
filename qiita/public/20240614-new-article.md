@@ -1,17 +1,16 @@
 ---
 title: Cursor × GitHub × Zenn/Qiitaで、学びを効率よく＆綺麗に残す最強アウトプット環境
-tags:
-  - Qiita
-  - 自動化
-  - アウトプット
-  - cursor
-  - Zenn
 private: false
+tags:
+  - cursor
+  - zenn
+  - qiita
+  - アウトプット
+  - 自動化
 updated_at: '2025-05-08T07:55:57+09:00'
 id: 4eec08c95dbb00c9b346
 organization_url_name: null
 slide: false
-ignorePublish: false
 ---
 
 
