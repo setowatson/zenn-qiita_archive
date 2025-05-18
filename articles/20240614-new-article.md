@@ -1,12 +1,10 @@
 ---
-title: "Cursor × GitHub × Zenn/Qiitaで、学びを効率よく＆綺麗に残す最強アウトプット環境"
+title: "Cursor × GitHub × Zenn/Qiitaで、学びを効率よく残す"
 emoji: "🌱"
 type: "tech" # tech: 技術記事 / idea: アイデア
 topics: ["cursor", "zenn", "qiita", "アウトプット", "自動化"]
 published: true
 ---
-
-
 # はじめに
 
 この記事では、AIアシスタント付きのエディタ CursorとGitHub Actionsを組み合わせて、「ZennとQiitaに効率よく・綺麗にアウトプットする方法」を紹介します。
