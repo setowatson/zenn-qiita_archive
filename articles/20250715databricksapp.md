@@ -1,16 +1,14 @@
 ---
-title: "Databricksでアプリをデプロイするメリットを考える"
+title: "DatabricksでWebアプリを構築からデプロイまでしてみた"
 emoji: "🌱"
 type: "tech"
 topics: ["databricks","アプリ開発","streamlit"]
-published: false
+published: true
 publication_name: "headwaters"
 ---
+# Databricksでアプリがデプロイできるようになたよ
 
-
-# Databricksでアプリがデプロイできるようになりました
-
-今月Databricks Appが日本でも利用できるようになりました。
+今月からDatabricks Appが日本リージョンでも利用できるようになりました。
 
 ーDatabricks Appとは？ー
 
@@ -19,14 +17,12 @@ publication_name: "headwaters"
 https://qiita.com/taka_yayoi/items/98028baf19e7a0f89daf
 
 
+簡単に言うと、**「databricksだけでアプリの開発・デプロイができるようになったよ！」** ということですね。
 
 
-簡単に言うと、「databricksだけでWebアプリの開発・デプロイができるようになったよ！」ということですね。
+# 社員の資格取得状況を見える化するダッシュボードアプリ
 
-
-# アプリ：社員の資格取得状況を見える化するダッシュボード
-
-ということでさっそくアプリを開発してみました。
+ということでさっそくアプリを作ってデプロイしてみました。
 今回作成したのは、以下のような社内向けアプリです。
 
 * **社員ごとの保有資格を一覧・フィルター表示**
@@ -36,30 +32,33 @@ https://qiita.com/taka_yayoi/items/98028baf19e7a0f89daf
 
 フロントエンドには Streamlit を使い、
 バックエンドはすべて Databricks の Delta Table で構築しました。
-開発所要時間は1人で3～4時間程度です。
+Cluade Code様のお力を借りながら3～4時間程度で完成しました。
 
+![](https://storage.googleapis.com/zenn-user-upload/5c87edc4a7b1-20250716.png)
+*タブ1：部署別の集計ダッシュボード*
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/4332ee23-aa9c-4f51-8194-8549130b3831.png)
+![](https://storage.googleapis.com/zenn-user-upload/4b542cf54a35-20250716.png)
+*タブ2：資格別の集計ダッシュボード*
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/47cb4e9b-97a6-4849-8485-7ff03efbc3fc.png)
+![](https://storage.googleapis.com/zenn-user-upload/ce127c5fdc38-20250716.png)
+*タブ3：月別の累計資格取得者数*
 
+![](https://storage.googleapis.com/zenn-user-upload/69c093da5271-20250716.png)
+*タブ4:資格取得一覧。編集や削除も可能。*
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/fde79843-9ba3-4ad7-8337-be210b094d89.png)
+![](https://storage.googleapis.com/zenn-user-upload/3a821f67b80e-20250716.png)
+*タブ5:資格取得時の申請（テーブル追加）*
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/a5a6f689-dc43-4a73-9b5a-dc04a639855e.png)
-
-
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/8f639216-c837-4b9f-a1a4-9cf5fabb7680.png)
-
-
-
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/216b5abe-eee3-4a13-950c-8c99d5f16f9c.png)
+![](https://storage.googleapis.com/zenn-user-upload/04e53b878fce-20250716.png)
+*タブ6：対象資格の追加（テーブル追加）*
 
 こんな感じです。
-Appを試してみたかっただけなので、特別AIを組み込んだ機能などは作成していません。
+Appを試してみたかっただけなので、特別なUIやAI機能などは作成していません。
+（機械学習モデルなんかを使うと、Databricksの強みがもっと出るかも）
 
-また、アプリのURLかGithubリポジトリを貼ろうか迷ったのですが、
-まだ少し不具合があるのとセキュリティ対策を何もしていないので一旦スクショのみの共有とさせてください。
+アプリのURLを貼ろうか迷ったのですが、
+まだ少し不具合があるのとセキュリティ対策を何もしていないので、
+一旦スクショとコードのみの共有とさせてください。
 
 ## アプリ構成
 
@@ -77,14 +76,6 @@ SHIKAKU-MIERUKA/
 └── requirements.txt             # 使用ライブラリ一覧（pip install用）
 ```
 
-| ファイル・フォルダ                 | 説明                                                     |
-| ------------------------- | ------------------------------------------------------ |
-| `.streamlit/secrets.toml` | Databricks SQL Connectorの認証情報。Git管理しない。       |
-| `app.py`                  | Streamlitのメインスクリプト。UI・SQL実行・グラフ表示などを書く。 |
-| `app.yaml`                | Databricks Appsでのアプリ起動時の定義ファイル（v2対応）   |
-| `requirements.txt`        | `pip install -r requirements.txt` で依存パッケージを一括インストール |
-| `.gitignore`              | `secrets.toml`や`.venv/`など、Gitに含めたくないものを除外    |
-| `README.md`               | プロジェクトの概要・起動方法を記載するドキュメント          |
 
 ## 開発環境
 
@@ -103,10 +94,11 @@ SHIKAKU-MIERUKA/
     - Plotly
     　棒グラフや折れ線グラフを描くのに使用
 
+また、Databricks環境は **Databricks Free Edition** を使用しています。
+無料の範囲内でここまでいろんな検証ができるのは本当にありがたいです。
 
+https://docs.databricks.com/aws/ja/getting-started/free-edition
 
-またDatabricks Free Editionを使用しています。
-無料の範囲内でここまでの検証ができるのは本当にありがたい。
 
 
 # Databricksでアプリを開発するメリット
@@ -120,15 +112,15 @@ SHIKAKU-MIERUKA/
 * `certificate_master`：資格のランクマスタ
 * `department_master`：部署マスタ
 
-sampleテーブルはこんな感じ。
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/cebe576b-651a-471d-8b4f-de5266251175.png)
+![](https://storage.googleapis.com/zenn-user-upload/6f7864906dc5-20250716.png)
+*sampleテーブルはこんな感じ*
 
 
-これらを直接`pandas.read_sql()`で読み込んで可視化に利用していますので、
+これらを直接`pandas.read_sql()`を使い読み込んで可視化に利用していますので、
 **わざわざBIツールにデータ連携する必要がありません**。
 
-また、このアプリではDatabricks上のDelta Tableに対して、
-**直接 `SELECT`・`INSERT`・`UPDATE`・`DELETE` を実行**しています。
+また、このアプリでは新規追加、編集・削除などの機能がありますが、
+Databricks上のDelta Tableに対して、直接実行しています。
 つまり、以下のようなデータ操作が**追加のAPIやバッチ処理を用意せずに実現**できます。
 
 * 表示（`SELECT`）：資格一覧や月別の集計グラフ表示
@@ -138,36 +130,38 @@ sampleテーブルはこんな感じ。
 
 REST APIやバックエンドの複雑な実装が不要で、SQL一発で完結します。
 
-## 2. デプロイもCLI操作もDatabricksで一気通貫できる
-Databricks では、Streamlitアプリをノートブックではなく本番用アプリ（Databricks Apps）としてそのまま公開できます。
+## 2. デプロイもCLI操作もDatabricksでできる
 
-Databricks CLIの設定だけ最初に必要ですが、それさえすれば、
-app.py + app.yaml さえあれば、ワンクリック or CLIで即デプロイできました。
+Databricksでは、Streamlitアプリをノートブックではなく本番用アプリ（Databricks Apps）としてそのまま公開できます。
+
+Databricks CLIの設定だけ最初に必要ですが、
+`app.py` + `app.yaml` さえあれば、ワンクリック or CLIで即デプロイできました。
 
 https://docs.databricks.com/aws/ja/dev-tools/cli/commands
 
 
-つまり、アプリ開発 → デプロイ → 共有 → 運用まですべて1つの基盤で完結します。
+つまり、**アプリ開発 → デプロイ → 共有 → 運用 まですべて1つの基盤で完結** します。
 特に「社内向けアプリ」や「業務効率化ダッシュボード」を素早く回したいチームにとって、大きな武器になると思います。
 
-以下はDatabricksアプリのデプロイ画面です。
+
+![](https://storage.googleapis.com/zenn-user-upload/e29bbb0655b7-20250716.png)
+*Databricksアプリのデプロイ画面*
+
 CLIでコードをアップしたら、「デプロイ」ボタンを押すだけで公開できます。
+個人的には `dbx sync`による同期がとても簡単で助かりました。
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/2bf1fdda-841a-4458-a9c0-ce14af869ebd.png)
-
-
-## 3. **権限・ログ・運用もDatabricks内で一貫管理**
+## 3. **権限・ログ・運用もDatabricks内で一貫管理できる**
 
 * ワークスペースでの**Unity Catalogに基づくアクセス制御が可能**
 * 操作ログ・データ変更ログも**監査しやすい**
 * 「テーブル＋アプリ」が1つの環境にあることで、**ガバナンスと開発の両立**がしやすい
 
-今回は私個人で行い、実運用も想定していないのであまり考慮していないですが、
-大規模でプロダクトレベルのアプリを開発する際、このあたりは必須の環境かなと思っています。
-そこも簡単なのは安心ですね。
+今回は個人開発ですし実運用も想定していないので考慮していないですが、
+大規模でプロダクトレベルのアプリを開発する際、このあたりは必須の設定かなと思っています。
+そうした設定が簡単なのは安心ですね。
 
-以下「権限」から設定できる画面。
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/80b4bb9a-0103-4e5e-b86a-c3e4ec192619.png)
+![](https://storage.googleapis.com/zenn-user-upload/0dc02feb5319-20250716.png)
+*「アプリ」→「権限」で設定できる画面*
 
 
 # こんなケースにおすすめ
@@ -175,19 +169,20 @@ CLIでコードをアップしたら、「デプロイ」ボタンを押すだ�
 * **すでにDatabricksにデータがある**
   　→ Delta TableやSQL Warehouseをそのまま使いたい人に最適です。
 
-* **ExcelやBIツールでは限界を感じている**
-  　→ 単なる可視化ではなく、申請や登録など、**業務フローそのものを操作できるアプリ**を作りたい場合にぴったり。
-
 * **部門ごとにアクセス制御したい／URLで簡単に共有したい**
   　→ Unity CatalogやDatabricks Appsと組み合わせれば、**セキュリティと利便性の両立**が可能です。
 
-* **「他システム連携」ではなく、Databricks内で完結した仕組みを作りたい**
+* **他システム連携ではなく、Databricks内で完結した仕組みを作りたい**
   　→ 外部APIの開発や疎通テストを省き、**シンプルかつ高速に運用開始**できます。
 
+* **非エンジニアでもアイデアをアプリにしたい**
+  　→ バックエンドの設定やデプロイシーンなど非エンジニアにとって難しい箇所の負担が軽減されるので、**誰でも気軽にアプリ開発に取り組むこと** ができます。
 
 
-
-今回のプチ開発でdatabricksでのアプリ開発にとても大きな魅力を感じました。上に当てはまる方はぜひ気軽にチャレンジしてみられてはいかがかでしょうか。
+正直社内用途であれば、わざわざアプリ化しなくてもDatabricks上のダッシュボードで完結するよねーと最後に気づきました。
+でもエンジニアでなくてもここまでできるぞ！ということで、
+敷居の低い入門編としてとりあえず魅力を感じることはできました。
+みなさんもぜひ気軽にチャレンジしてみてはいかがでしょうか？
 
 
 ## 参考リンク

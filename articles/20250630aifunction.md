@@ -1,55 +1,93 @@
 ---
-title: "Databricksだと簡単SQLだけで半年先の人口を予測できる"
+title: "SQLだけで半年先の人口を予測してみる"
 emoji: "🌱"
 type: "tech"
-topics: ["databricks"]
-published: false
+topics: ["databricks","SQL","時系列分析"]
+published: true
 publication_name: "headwaters"
 ---
-
 
  
 # 出力イメージ
  
-生成AIや自動予測が当たり前になりつつある中、**簡単なSQLだけで時系列予測ができるDatabricksの `ai_forecast()` 関数**が登場しました。
- 
-https://docs.databricks.com/gcp/ja/sql/language-manual/functions/ai_forecast
- 
+Databricksには **簡単なSQLだけで時系列予測ができる`ai_forecast()` 関数** があります。
 
-# 1. ai_forecast 関数とは？
+
+ この関数を使用して、以下を予測してみます。
+
+  - 対象：東京都中央区(地域コード13102)の人口
+  - 学習期間：2021年1月～2025年1月
+  - 予測期間：2025年2月～2025年7月（2025年5月まで実測値もあり）
+
+このテーブルを元に、
+
+ ![](https://storage.googleapis.com/zenn-user-upload/3be13dc7a9d7-20250630.png)
+
+こんな感じ。
+![](https://storage.googleapis.com/zenn-user-upload/16ff1d6dff92-20250630.png)
+
+- X軸：年月
+- Y軸：人口
+- 実線：実測値（2025年5月まで）
+- 点線：予測（`population_forecast`）
+- 青枠：予測上方（`population_upper`）と下方（`population_lower`）
+
+例えば2025年5月はこの結果。
+幅が5000人以上あって少しせこいですが、しっかりと予測範囲に入っています。
+予測値とは2000人くらいの誤差。
+![](https://storage.googleapis.com/zenn-user-upload/9f76722008ca-20250630.png)
+
+
+# 1. ai_forecast 関数とは
  
 Databricksの `ai_forecast()` は、**時系列データに対して将来の値を予測してくれるAI組込関数**です。
-SQLで簡単に以下のことができます。
- 
-* 特定の期間までの将来予測
-* グループごとの個別予測（例：市区別）
-* 上限・下限（予測区間）の自動計算
- 
-> 公式ドキュメントはこちら
+予測モデルの選定・パラメータ調整などが不要で、SQLだけで完結します。
+
+できること：
+- 指定期間までの未来予測
+- 地域やカテゴリごとの個別予測
+- 予測範囲（上限・下限）の出力
+
+何のモデルを使ってるんや？と思い調べたのですが、見つけることができませんでした。
+公式ドキュメントにも、モデルについては明示されていませんが、
+以下のような記載がありました。
+
+> The function returns forecasted values by applying a machine learning model based on historical trends in the data.
+> （この関数は、過去のトレンドに基づく機械学習モデルを使って予測を行います）
+
+過去の時系列パターンから予測を行う、何かしらの汎用的なMLモデルが使われているようですね。
+
 https://docs.databricks.com/gcp/ja/sql/language-manual/functions/ai_forecast
  
 
-# 2. 使ったデータと目的
+# 2. 使用したデータ
  
-今回使ったのは、**Databricks上に保存された東京都の市区別・月次人口データ** です。
-このデータには2020年〜2025年1月までの実測人口が入っており、これを元に**2025年2月〜7月までを予測**しました。
+今回使ったのは、**東京都の市区別・月次人口データ** です。
+東京都のオープンデータから取得しました。
+今回データの読み込みや詳しい操作方法は割愛します。
+
+https://portal.data.metro.tokyo.lg.jp/
  
  
-### 🟦 3. 予測テーブルの作成（SQLだけ）
- 
-以下のように、`ai_forecast()` を使って未来6ヶ月分の人口予測を生成し、Deltaテーブルとして保存します。
- 
+# 3. Deltaテーブルの作成
+
+`ai_forecast()` を使って未来6ヶ月分の人口予測を生成し、Deltaテーブルとして保存します。
+（2.で作成した月毎の人口テーブルを仮に`カタログ名.スキーマ名`としています。）
+
+:::details SQL
 ```sql
-DROP TABLE IF EXISTS workspace.popu_featured.population_forecast_202502_to_202507;
- 
-CREATE TABLE workspace.popu_featured.population_forecast_202502_to_202507 AS
-SELECT * FROM ai_forecast(
+DROP TABLE IF EXISTS カタログ名.スキーマ名.population_forecast_202502_to_202507;
+
+# CTAS 
+CREATE TABLE カタログ名.スキーマ名.population_forecast_202502_to_202507 AS
+# ai_forecast
+SELECT * FROM ai_forecast(　
   TABLE (
     SELECT 
       `地域コード` AS area_code, 
       CAST(`年月` AS DATE) AS ds, 
       `人口` AS population
-    FROM workspace.popu_featured.population_all_ver2
+    FROM カタログ名.スキーマ名
   ),
   horizon => '2025-08-01',
   time_col => 'ds',
@@ -59,72 +97,80 @@ SELECT * FROM ai_forecast(
   parameters => '{"global_floor": 0}'
 );
 ```
- 
-📝 補足：
- 
-* `group_col` には地域コードを指定（グループごとに予測）
-* `frequency => 'MS'`：月初ごとに予測
-* `parameters` で人口が0未満にならないよう制約を追加
- 
+
+- 補足
+
+| パラメータ         | 説明                                                      |
+| ------------- | ------------------------------------------------------- |
+| `TABLE (...)` | 時系列予測の元データ。地域コード・年月・人口の3列を使うように整形。                      |
+| `horizon`     | いつまで予測するか（例：2025年8月1日まで）。                               |
+| `time_col`    | 時系列の「日時列」の名前。ここでは `ds`（年月列）                             |
+| `value_col`   | 予測対象の値（人口）。ここでは `population`                            |
+| `group_col`   | グループ単位の予測をするための列（地域コードなど）                               |
+| `frequency`   | 時系列データの間隔。`'MS'` は "Month Start" の意味＝月初単位。              |
+| `parameters`  | 追加の制約や設定。ここでは `"global_floor": 0` により「人口は0未満にならない」よう制限。 |
+
+
+:::
+
+このあとに2025年2～6月の実測値も追加しているのですが、
+色々整えてできたテーブルはこんな感じ。
+（この色々整えてが一番時間かかってる）
+
+![](https://storage.googleapis.com/zenn-user-upload/ebfe8646de19-20250630.png)
+
 
  
 # 4. ダッシュボードで可視化
  
-作成した予測テーブルには以下の列が含まれます：
- 
-\| ds（日付） | area\_code（地域） | population\_forecast | population\_upper | population\_lower |
- 
-これを使って、Databricksダッシュボードで**予測線＋上限/下限帯グラフ** を作成します。
- 
-#### 📈 Visualization設定例：
- 
-| 設定項目                 | 値                                      |
-| -------------------- | -------------------------------------- |
-| Visualization Type   | Line                                   |
-| X-axis               | `ds`                                   |
-| Y-axis               | `population_forecast`                  |
-| Optional Range Lines | `population_upper`, `population_lower` |
-| Filter               | `area_code`（地域を切り替え表示可能）               |
- 
-# 5. 実測と予測の比較グラフも
- 
-さらに以下のSQLで、**実測人口（2024年7月以降）と予測人口を並べて比較**できます。
- 
-```sql
-SELECT
-  ds,
-  area_code,
-  '実測人口' AS `種類`,
-  population AS `人口`
-FROM (
-  SELECT 
-    CAST(`年月` AS DATE) AS ds,
-    `地域コード` AS area_code,
-    `人口` AS population
-  FROM workspace.popu_featured.population_all_ver2
-  WHERE `年月` >= '2024-07-01'
-)
-UNION ALL
-SELECT
-  ds,
-  area_code,
-  '予測人口' AS `種類`,
-  population_forecast AS `人口`
-FROM workspace.popu_featured.population_forecast_202502_to_202507
-```
- 
-このクエリで出力された結果を「Lineグラフ（X軸：ds、色分け：種類）」にすると、**予測と実測の差異が一目瞭然**になります。
- 
-# 所感と活用ポイント
- 
-* SQLだけでここまでできるのは非常に強力。Pythonや機械学習モデルの知識がなくてもOK。
-* 定期更新ジョブやAuto Loaderと組み合わせれば、**毎月新しいデータが来たら自動予測＆可視化も可能**
-* 各地域の増減傾向や、将来の人口集中・過疎もすぐに発見できる
+3.で作成したテーブルを使い、ダッシュボードで予測棒グラフを作成します。
+可視化の設定項目はこんな感じ。
 
- 
-`ai_forecast()` 関数は、**Databricks SQLユーザーにとって「使わない理由がない」ほど便利な時系列予測ツール**です。
- 
-業務データ（売上・来客数・在庫）やオープンデータ（人口・交通量・気温）など、あらゆる時系列データに応用できます。
+![](https://storage.googleapis.com/zenn-user-upload/3424582053fe-20250630.png)
 
-SQLだけで未来を予測し、意思決定に活かしたい人にはぜひ一度触ってみてほしい関数です。
+これだけでこのグラフが完成です。
 
+![](https://storage.googleapis.com/zenn-user-upload/16ff1d6dff92-20250630.png)
+ 
+# まとめ：ai_forecast() を使った感想
+
+## 活用の可能性
+
+以下のようなメリットから様々な分野・場面での活用が想像できました。
+
+- **モデル構築が不要、SQLだけで時系列予測を試せる**
+  やはり最大の魅力はSQL数行だけで予測ができることです。学習コストが低くエンジニアでなくても実行可能という価値はかなり大きいと思います。
+
+* **ワークフローとして簡単に組み込める**
+  予測結果をDeltaテーブルとして保存すれば、ダッシュボードにそのまま可視化も可能です。共有や共同編集も簡単です。
+
+* **「年月」「数値データ」さえあれば予測可能**
+　この2つのデータさえあれば、ほぼすべての時系列データに予測が可能です。小売業や製造業、モニタリング業務など、分析基盤の1つとして幅広く活用が見込めそうです。
+
+## もう一歩欲しいところ
+
+とはいえ、現時点では以下のような点が制約として存在します。
+
+* **使用モデルが非公開**
+どのアルゴリズムが使われているのか明示されておらず、精度やロジックの検証ができないのはやや不安です。学習データ量によって差が出ることはわかったのですが、どれくらいあれば十分かもあまり検証できませんでした。
+
+* **特徴量を自分で加えられない**
+長所の裏返しですが、ざっくり解析のため、祝日・天気・キャンペーン情報など現実の影響を加味した予測には対応できません。複雑な予測にはMLflowやAutoMLとの併用が前提になりそうです。
+
+* **細かい粒度には非対応**
+現時点では月単位（'MS'）の粒度が前提となっており、より細かい予測には対応していません。今後の機能拡張に期待。
+
+
+総合して、精度向上のための追加施策を行えないのが難点です。
+
+
+## みんなにほんのり優しいね
+
+`ai_forecast()` は、**まずAI予測の感覚を掴みたい方にとって最適なファーストステップ** です。
+
+精度や柔軟性を求めるには限界がある一方で、
+**“とりあえずサクッと予測をしてみたい”という幅広いニーズ** に対しては、
+これ以上なく優しい関数だと感じました。
+
+私もそんな人間になりたいと思わされました。
+ありがとうございました。
