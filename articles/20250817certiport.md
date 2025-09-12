@@ -2,67 +2,78 @@
 title: "Certiport経由で取得した資格はMicrosoft Learnに紐づけられないらしい"
 emoji: "🌱"
 type: "idea"
-topics: ["資格取得"]
-published: false
+topics: ["azure","資格取得"]
+published: true
 publication_name: "headwaters"
 ---
 
 # 1. Azure取得資格状況を会社アカウントへ紐づけたい
 
-これまで複数のMicrosoft(Azure)認定資格を **オデッセイコミュニケーションズ社の"Certiport"経由** で受験・取得しています。
+これまで複数のMicrosoftのAzure認定資格を **オデッセイコミュニケーションズ社のCertiport経由** で受験・取得しています。
 
 Certiportとは、米国に本社を置く企業で、MicrosoftやAdobeなどのIT系資格試験の配信・管理を行う公式試験提供会社です。日本でもMicrosoft認定資格の受験手段のひとつとなっています。
 
-![image.png](https://qiita-image-store.s3.ap-northeast-1.amazonaws.com/0/3780099/7dfc5ae3-3377-41e9-b914-d823f900cf76.png)
+![](https://storage.googleapis.com/zenn-user-upload/aeb13aacca12-20250819.png =250x)
+
 
 https://certiport.pearsonvue.com/Certifications/Microsoft/MCF/Overview.aspx
 
-この取得したMicrosoft認定資格ですが、会社で使用している自分のMicrosoftアカウント(Microsoft Learn)に紐づけることで、Microsoft Cloud Partner Programにおける **Skilling指標**、
-つまり **パートナー企業としてのスキルスコア** に貢献できます。
+ところで、こちらの取得したMicrosoft認定資格ですが、会社で使用している自分のMicrosoftアカウント(Microsoft Learn)に紐づけることで、Microsoft Cloud Partner Programにおける **Skilling指標**、つまり **パートナー企業としてのスキルスコア** に貢献できます。
 
-方法はいくつかあるようですが、私の場合 **「Certiportの個人アカウントと会社のMicrosoftアカウントを紐づける」** 必要がありました。
+取得経路によって方法は異なるようですが、私の場合は上述の通り **「資格取得で使用したCertiportの個人アカウントと会社のMicrosoftアカウントを紐づける」** 必要がありました。
+ただ、どこにも紐づける方法の記載がない…。
 
 https://learn.microsoft.com/ja-jp/partner-center/membership/ms-learn-associate
 
 # 2. 試みとMicrosoftの回答
 
-## ネットサーフィンで情報収集
-- Certiportアカウント（個人メール）で取得した資格情報を会社のMicrosoftアカウントに紐づけられるかどうか、ネットサーフィン
+## ネットで情報収集
+- Certiportアカウント（個人メール）で取得した資格情報を会社のMicrosoftアカウントに紐づけられるかどうか、英語圏含めてネットサーフィン
 - ただ、クリティカルな回答がどこにもない
-- どうやら同じ質問はたくさんあったようだが、ほとんどクローズされていて確認できない…。
+- どうやら同じ質問はたくさんあったようだが、ほとんどクローズされている？確認できない…。
 
 https://learn.microsoft.com/ja-jp/answers/questions/2119851/certiport-microsoft
 
   
-## Microsoft サポートリクエストにて問い合わせ
+## Microsoftサポートセンターへ問い合わせ
 
-こちらのフォームから質問を送信すると、以下回答をいただきました。
+こちらのサポートリクエストから質問を送信すると、以下回答をいただきました。
 
 https://learn.microsoft.com/ja-jp/services-hub/unified/support/open-support-requests?pivots=existing
 
-Microsoftからの回答（要旨）
+Microsoftサポートセンターからの回答（要旨）
 - **2023年6月以降にCertiport経由で取得した資格**は、**Microsoft Learnに表示されない仕様**に変更された
-- 現在、**試験配信会社が異なる場合、アカウント統合の手続きは行えない仕様** である
 - 将来的にはMicrosoft Learnに表示されるよう対応中だが、**対応完了時期は未定**
-- 問い合わせいただければ対応可能なため、**パートナーセンターに問い合わせしてほしい**
+- パートナーセンター次第ではスキルスコアへのカウントは対応可能かもしれないため、パートナーセンターに問い合わせしてほしい
 
 
-
-なんとCertiport経由では色々と厄介だった様子。
+なんとCertiport経由の取得では色々と厄介だった様子。
 Microsoft担当者から回答をいただく早さにも驚いたのですが、
 ただ、この内容もう少しわかりやすい箇所に記載していただきたいな…。
 
 ## Microsoftパートナーセンターへ問い合わせ
 
-ご案内いただいたこちらのフォームから質問を送信すると、以下回答をいただきました。
+引き続きご案内いただいたパートナーセンターへの問い合わせフォームから質問を送信しました。
 
 https://partner.microsoft.com/dashboard/v2/support/servicerequests/create
 
 
+Microsoftパートナーセンターからの回答（要旨）
+
+- （サポートセンター回答同様）現在、Certiport経由で取得した資格は、**Microsoft Learnに表示されない**
+- パートナーセンターでも **アカウントの統合・スキルスコアへのカウントはできない**
+- すぐに反映したい場合はMicrosoft Learnに表示されている他経路で受験してほしい
+- **この情報は現在正式に案内できていない**（申し訳ないですとのこと）
+
+なんと残念。私が取得した資格はカウントできないとわかりました。
+パートナーセンターの方も「対応する予定だが、時期については未定」とのことでしたので、
+おそらく今年の話ではなさそうです。
+悔しいですが、早いうちに知れたことをポジティブに考えたいと思います。
+
 
 # 3. 現時点での対応方針・代替案
 
-- これまでの取得資格の紐づけは待機。CertiportとMicrosoft Learnの統合が可能になった際に紐づけを行う。
+- これまでの取得資格の紐づけは一旦待機。いつになるかは不明だが、CertiportとMicrosoft Learnの統合が可能になった際に紐づけを行う。
 - 今後Microsoft認定資格を受験する場合はCertiport経由ではなく、**Pearson VUE経由** で受験する。
 
 https://www.pearsonvue.com/jp/ja/microsoft.html
