@@ -7,7 +7,6 @@ published: false
 publication_name: "headwaters"
 ---
 
-
 # AI導入を考えるときに試したいフレームワーク2選
 
 最近、「AIを業務にどう取り入れるか」という話題がどこでも出るようになりました。
