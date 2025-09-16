@@ -5,7 +5,7 @@ type: "tech"
 topics: ["databricks", "materialized-view", "データ基盤"]
 published: false
 publication_name: "headwaters"
--------------------------------
+---
 
 # マテリアライズドビューとは？
 

@@ -1,6 +1,6 @@
 ---
 title: "Databricks Mosaic AIの概要と活用"
-emoji: "🤖"
+emoji: "🌱"
 type: "tech"
 topics: ["databricks", "mosaicai", "生成AI", "LLM"]
 published: false

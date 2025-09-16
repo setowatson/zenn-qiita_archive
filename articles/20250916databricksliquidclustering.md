@@ -1,6 +1,6 @@
 ---
 title: "DatabricksにおけるLiquid Clustering徹底解説"
-emoji: "💧"
+emoji: "🌱"
 type: "tech"
 topics: ["Databricks", "DeltaLake", "LiquidClustering", "データ基盤"]
 published: false
